@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rclasses by bigsweater</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Rclasses</h1>
+        <p class="header">A jQuery plugin that responsively adds classes to an object based on its width.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/bigsweater/rclasses/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/bigsweater/rclasses/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/bigsweater/rclasses">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/bigsweater">bigsweater</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="rclasses" class="anchor" href="#rclasses"><span class="octicon octicon-link"></span></a>rclasses</h1>
+
+<h2>
+<a name="a-jquery-plugin-that-responsively-adds-classes-to-an-object-based-on-its-width" class="anchor" href="#a-jquery-plugin-that-responsively-adds-classes-to-an-object-based-on-its-width"><span class="octicon octicon-link"></span></a>A jQuery plugin that responsively adds classes to an object based on its width.</h2>
+
+<p><a href="https://github.com/scottjehl/Respond">Respond.js</a> is awesome and works really well for me...except when including additional stylesheets. I've found that IE &lt;= 8 has the annoying tendency to <em>continue</em> ignoring certain media queries in <code>&lt;link&gt;</code>ed stylesheets called after the main one.</p>
+
+<p>So, I created this jQuery plugin. It calculates the width of the element you apply it to, compares that number to a set of breakpoints (either the default breakpoints or ones you create), and applies a class accordingly).</p>
+
+<h3>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<ol>
+<li> Load jQuery</li>
+<li> Load the plugin</li>
+<li> Apply the plugin to an element you wish to measure. (You can apply it to anything on the page, but I use <code>&lt;body&gt;</code>: <code>$('body').rclasses();</code>
+</li>
+<li> Use the dynamic classes to style your element.</li>
+</ol><p>By default, there are four classes at four breakpoints. They're pretty arbitrary, though:</p>
+
+<ul>
+<li>
+<code>.rclass-small</code> (480px)</li>
+<li>
+<code>.rclass-medium</code> (640px)</li>
+<li>
+<code>.rclass-large</code> (960px)</li>
+<li>
+<code>.rclass-xlarge</code> (1200px)</li>
+</ul><p>That'll get ya started. But if you'd like to use your own breakpoints...</p>
+
+<h3>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
+
+<p>If you'd like to use your own breakpoints:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'body'</span><span class="p">).</span><span class="nx">rclasses</span><span class="p">({</span>
+    <span class="nx">breakpoints</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'wee'</span><span class="o">:</span> <span class="mi">320</span><span class="p">,</span>
+        <span class="s1">'notsowee'</span><span class="o">:</span> <span class="mi">768</span><span class="p">,</span>
+        <span class="s1">'freakinhuge'</span><span class="o">:</span> <span class="mi">1200</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>(Classic SNL references optional, but highly recommended.)</p>
+
+<p>The keys in the <code>breakpoint</code> object will be used as the classes on the <code>body</code> element; the values are the pixel-widths at which the plugin begins to apply the classes. (So, in the above example, when the <code>body</code> element is between widths of 320 and 768 pixels, it will have a class of 'wee'.) </p>
+
+<p>You can also use Modernizr to dynamically load the plugin:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">Modernizr</span><span class="p">.</span><span class="nx">load</span><span class="p">([</span>
+    <span class="p">{</span> <span class="c1">// Test for media queries</span>
+        <span class="nx">test</span><span class="o">:</span>   <span class="nx">Modernizr</span><span class="p">.</span><span class="nx">mq</span><span class="p">(</span><span class="s1">'only all'</span><span class="p">),</span>
+        <span class="nx">nope</span><span class="o">:</span>   <span class="s1">'//your-site.com/assets/js/vendor/rclasses.min.js'</span><span class="p">,</span>
+        <span class="nx">complete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">jQuery</span><span class="p">().</span><span class="nx">rclasses</span><span class="p">){</span>
+                        <span class="nx">$</span><span class="p">(</span><span class="s1">'body'</span><span class="p">).</span><span class="nx">rclasses</span><span class="p">();</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+            <span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>         
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]);</span>
+</pre></div>
+
+<p><em>NOTE:</em> The plugin checks the width of <em>the element you've applied it to</em>, not the <code>body</code> element (unless you applied it to <code>body</code>).</p>
+
+<h3>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h3>
+
+<ul>
+<li>Bug: If multiple instances of the plugin are used, only the last one actually gets new classes on resize.</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
